@@ -43,3 +43,16 @@ From here, you can find the project files by entering:
 ```nix
 cd /vagrant/tournament
 ```
+
+## Set up the tournament database
+All of the SQL commands needed to set up the database are defined in /vagrant/tournament/tournament.sql. All you need to do is connect to the PostgreSQL interactive terminal:
+
+```nix
+psql
+```
+
+and import the SQL file:
+
+```nix
+\i tournament.sql
+```
