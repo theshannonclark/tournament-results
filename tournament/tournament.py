@@ -8,23 +8,38 @@ import psycopg2
 class Tournament():
 
     def __init__(self):
-        self.connection = self.connect()
+        self.connection = None
+
+    def __enter__(self):
+        """ Connect to the database when using with statement """
+        self.connect()
+        return self
+
+    def __exit__(self, exc_type, exc_value, traceback):
+        """ Disconnect from the database when leaving with statement """
+        self.close()
 
     def connect(self):
         """Connect to the PostgreSQL database.  Returns a database connection."""
-        return psycopg2.connect("dbname=tournament")
+        if not self.connection:
+            self.connection = psycopg2.connect("dbname=tournament")
+
+    def close(self):
+        if self.connection:
+            self.connection.close()
+            self.connection = None
 
     def deleteMatches(self):
         """Remove all the match records from the database."""
         cursor = self.connection.cursor()
         cursor.execute("DELETE FROM matches;")
-        connection.commit()
+        self.connection.commit()
 
     def deletePlayers(self):
         """Remove all the player records from the database."""
         cursor = self.connection.cursor()
         cursor.execute("DELETE FROM players;")
-        connection.commit()
+        self.connection.commit()
 
     def countPlayers(self):
         """Returns the number of players currently registered."""
