@@ -4,18 +4,18 @@
 
 from tournament import *
 
-def testDeleteMatches():
-    deleteMatches()
+def testDeleteMatches(tourney):
+    tourney.deleteMatches()
     print "1. Old matches can be deleted."
 
 
-def testDelete():
-    deleteMatches()
-    deletePlayers()
+def testDelete(tourney):
+    tourney.deleteMatches()
+    tourney.deletePlayers()
     print "2. Player records can be deleted."
 
 
-def testCount():
+def testCount(tourney):
     deleteMatches()
     deletePlayers()
     c = countPlayers()
@@ -27,7 +27,7 @@ def testCount():
     print "3. After deleting, countPlayers() returns zero."
 
 
-def testRegister():
+def testRegister(tourney):
     deleteMatches()
     deletePlayers()
     registerPlayer("Chandra Nalaar")
@@ -38,7 +38,7 @@ def testRegister():
     print "4. After registering a player, countPlayers() returns 1."
 
 
-def testRegisterCountDelete():
+def testRegisterCountDelete(tourney):
     deleteMatches()
     deletePlayers()
     registerPlayer("Markov Chaney")
@@ -56,7 +56,7 @@ def testRegisterCountDelete():
     print "5. Players can be registered and deleted."
 
 
-def testStandingsBeforeMatches():
+def testStandingsBeforeMatches(tourney):
     deleteMatches()
     deletePlayers()
     registerPlayer("Melpomene Murray")
@@ -79,7 +79,7 @@ def testStandingsBeforeMatches():
     print "6. Newly registered players appear in the standings with no matches."
 
 
-def testReportMatches():
+def testReportMatches(tourney):
     deleteMatches()
     deletePlayers()
     registerPlayer("Bruno Walton")
@@ -101,7 +101,7 @@ def testReportMatches():
     print "7. After a match, players have updated standings."
 
 
-def testPairings():
+def testPairings(tourney):
     deleteMatches()
     deletePlayers()
     registerPlayer("Twilight Sparkle")
@@ -126,14 +126,18 @@ def testPairings():
 
 
 if __name__ == '__main__':
-    testDeleteMatches()
-    testDelete()
-    testCount()
-    testRegister()
-    testRegisterCountDelete()
-    testStandingsBeforeMatches()
-    testReportMatches()
-    testPairings()
+    with Tournament() as tourney:
+        testDeleteMatches(tourney)
+        testDelete(tourney)
+        """
+        testCount()
+        testRegister()
+        testRegisterCountDelete()
+        testStandingsBeforeMatches()
+        testReportMatches()
+        testPairings()
+        """
+
     print "Success!  All tests pass!"
 
 
