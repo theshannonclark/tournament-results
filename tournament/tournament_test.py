@@ -28,10 +28,10 @@ def testCount(tourney):
 
 
 def testRegister(tourney):
-    deleteMatches()
-    deletePlayers()
-    registerPlayer("Chandra Nalaar")
-    c = countPlayers()
+    tourney.deleteMatches()
+    tourney.deletePlayers()
+    tourney.registerPlayer("Chandra Nalaar")
+    c = tourney.countPlayers()
     if c != 1:
         raise ValueError(
             "After one player registers, countPlayers() should be 1.")
@@ -130,8 +130,8 @@ if __name__ == '__main__':
         testDeleteMatches(tourney)
         testDelete(tourney)
         testCount(tourney)
+        testRegister(tourney)
         """
-        testRegister()
         testRegisterCountDelete()
         testStandingsBeforeMatches()
         testReportMatches()
