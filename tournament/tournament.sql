@@ -29,8 +29,7 @@ CREATE DATABASE tournament;
 
 CREATE TABLE players (
   player_id smallserial PRIMARY KEY,
-  first_name text,
-  last_name text
+  name text
 );
 
 -- Create the matches table
