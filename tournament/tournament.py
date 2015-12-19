@@ -43,6 +43,12 @@ class Tournament():
 
     def countPlayers(self):
         """Returns the number of players currently registered."""
+        cursor = self.connection.cursor()
+        cursor.execute("SELECT count(player_id) FROM players;")
+        result_tuple = cursor.fetchone()
+        num_players = result_tuple[0]
+
+        return num_players
 
 
     def registerPlayer(self, name):
