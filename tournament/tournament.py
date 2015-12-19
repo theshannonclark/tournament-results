@@ -90,6 +90,9 @@ class Tournament():
           winner:  the id number of the player who won
           loser:  the id number of the player who lost
         """
+        cursor = self.connection.cursor()
+        cursor.execute("INSERT INTO matches VALUES (%s, %s, %s);", (winner, loser, winner))
+        self.connection.commit()
 
 
     def swissPairings(self):

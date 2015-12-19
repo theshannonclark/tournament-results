@@ -133,7 +133,7 @@ if __name__ == '__main__':
         testRegister(tourney)
         testRegisterCountDelete(tourney)
         testStandingsBeforeMatches(tourney)
-        testReportMatches()
+        testReportMatches(tourney)
         """
         testPairings()
         """
