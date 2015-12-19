@@ -39,18 +39,18 @@ def testRegister(tourney):
 
 
 def testRegisterCountDelete(tourney):
-    deleteMatches()
-    deletePlayers()
-    registerPlayer("Markov Chaney")
-    registerPlayer("Joe Malik")
-    registerPlayer("Mao Tsu-hsi")
-    registerPlayer("Atlanta Hope")
-    c = countPlayers()
+    tourney.deleteMatches()
+    tourney.deletePlayers()
+    tourney.registerPlayer("Markov Chaney")
+    tourney.registerPlayer("Joe Malik")
+    tourney.registerPlayer("Mao Tsu-hsi")
+    tourney.registerPlayer("Atlanta Hope")
+    c = tourney.countPlayers()
     if c != 4:
         raise ValueError(
             "After registering four players, countPlayers should be 4.")
-    deletePlayers()
-    c = countPlayers()
+    tourney.deletePlayers()
+    c = tourney.countPlayers()
     if c != 0:
         raise ValueError("After deleting, countPlayers should return zero.")
     print "5. Players can be registered and deleted."
@@ -131,8 +131,8 @@ if __name__ == '__main__':
         testDelete(tourney)
         testCount(tourney)
         testRegister(tourney)
+        testRegisterCountDelete(tourney)
         """
-        testRegisterCountDelete()
         testStandingsBeforeMatches()
         testReportMatches()
         testPairings()
