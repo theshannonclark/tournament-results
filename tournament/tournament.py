@@ -110,4 +110,14 @@ class Tournament():
             id2: the second player's unique id
             name2: the second player's name
         """
-
+        standings = self.playerStandings()
+        pairings = []
+        if len(standings) > 1:
+            if standings[0][-1] != standings[1][3]:
+                pairings = [(standings[0], standings[1])]
+            else:
+                for i in range(0, len(standings), 2):
+                    p1 = (standings[i][0], standings[i][1])
+                    p2 = (standings[i+1][0], standings[i+1][1])
+                    pairings.append((p1[0], p1[1], p2[0], p2[1]))
+        return pairings

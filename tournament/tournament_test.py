@@ -102,17 +102,17 @@ def testReportMatches(tourney):
 
 
 def testPairings(tourney):
-    deleteMatches()
-    deletePlayers()
-    registerPlayer("Twilight Sparkle")
-    registerPlayer("Fluttershy")
-    registerPlayer("Applejack")
-    registerPlayer("Pinkie Pie")
-    standings = playerStandings()
+    tourney.deleteMatches()
+    tourney.deletePlayers()
+    tourney.registerPlayer("Twilight Sparkle")
+    tourney.registerPlayer("Fluttershy")
+    tourney.registerPlayer("Applejack")
+    tourney.registerPlayer("Pinkie Pie")
+    standings = tourney.playerStandings()
     [id1, id2, id3, id4] = [row[0] for row in standings]
-    reportMatch(id1, id2)
-    reportMatch(id3, id4)
-    pairings = swissPairings()
+    tourney.reportMatch(id1, id2)
+    tourney.reportMatch(id3, id4)
+    pairings = tourney.swissPairings()
     if len(pairings) != 2:
         raise ValueError(
             "For four players, swissPairings should return two pairs.")
@@ -134,9 +134,7 @@ if __name__ == '__main__':
         testRegisterCountDelete(tourney)
         testStandingsBeforeMatches(tourney)
         testReportMatches(tourney)
-        """
-        testPairings()
-        """
+        testPairings(tourney)
 
     print "Success!  All tests pass!"
 
