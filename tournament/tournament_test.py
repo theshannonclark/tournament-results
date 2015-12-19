@@ -57,11 +57,11 @@ def testRegisterCountDelete(tourney):
 
 
 def testStandingsBeforeMatches(tourney):
-    deleteMatches()
-    deletePlayers()
-    registerPlayer("Melpomene Murray")
-    registerPlayer("Randy Schwartz")
-    standings = playerStandings()
+    tourney.deleteMatches()
+    tourney.deletePlayers()
+    tourney.registerPlayer("Melpomene Murray")
+    tourney.registerPlayer("Randy Schwartz")
+    standings = tourney.playerStandings()
     if len(standings) < 2:
         raise ValueError("Players should appear in playerStandings even before "
                          "they have played any matches.")
@@ -132,8 +132,8 @@ if __name__ == '__main__':
         testCount(tourney)
         testRegister(tourney)
         testRegisterCountDelete(tourney)
+        testStandingsBeforeMatches(tourney)
         """
-        testStandingsBeforeMatches()
         testReportMatches()
         testPairings()
         """
