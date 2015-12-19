@@ -38,7 +38,6 @@ CREATE TABLE matches (
   p1_id smallint REFERENCES players,
   p2_id smallint REFERENCES players,
   winner_id smallint REFERENCES players,
-  round integer NOT NULL,
   PRIMARY KEY (p1_id, p2_id)
 );
 

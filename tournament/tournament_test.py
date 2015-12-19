@@ -80,17 +80,17 @@ def testStandingsBeforeMatches(tourney):
 
 
 def testReportMatches(tourney):
-    deleteMatches()
-    deletePlayers()
-    registerPlayer("Bruno Walton")
-    registerPlayer("Boots O'Neal")
-    registerPlayer("Cathy Burton")
-    registerPlayer("Diane Grant")
-    standings = playerStandings()
+    tourney.deleteMatches()
+    tourney.deletePlayers()
+    tourney.registerPlayer("Bruno Walton")
+    tourney.registerPlayer("Boots O'Neal")
+    tourney.registerPlayer("Cathy Burton")
+    tourney.registerPlayer("Diane Grant")
+    standings = tourney.playerStandings()
     [id1, id2, id3, id4] = [row[0] for row in standings]
-    reportMatch(id1, id2)
-    reportMatch(id3, id4)
-    standings = playerStandings()
+    tourney.reportMatch(id1, id2)
+    tourney.reportMatch(id3, id4)
+    standings = tourney.playerStandings()
     for (i, n, w, m) in standings:
         if m != 1:
             raise ValueError("Each player should have one match recorded.")
@@ -133,8 +133,8 @@ if __name__ == '__main__':
         testRegister(tourney)
         testRegisterCountDelete(tourney)
         testStandingsBeforeMatches(tourney)
-        """
         testReportMatches()
+        """
         testPairings()
         """
 
