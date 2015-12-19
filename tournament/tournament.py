@@ -77,6 +77,10 @@ class Tournament():
             wins: the number of matches the player has won
             matches: the number of matches the player has played
         """
+        cursor = self.connection.cursor()
+        cursor.execute("SELECT * FROM playerstandings;")
+
+        return cursor.fetchall()
 
 
     def reportMatch(self, winner, loser):
