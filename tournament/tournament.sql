@@ -21,7 +21,7 @@ CREATE DATABASE tournament;
 --
 -- Two tables: players and matches. No need to
 -- drop them first, since dropping the database
--- already does that.
+-- already does that :)
 
 
 
