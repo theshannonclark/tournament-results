@@ -60,7 +60,9 @@ class Tournament():
         Args:
           name: the player's full name (need not be unique).
         """
-
+        cursor = self.connection.cursor()
+        cursor.execute("INSERT INTO players (name) VALUES (%s);", (name,))
+        self.connection.commit()
 
     def playerStandings(self):
         """Returns a list of the players and their win records, sorted by wins.
