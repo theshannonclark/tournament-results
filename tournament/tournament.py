@@ -91,7 +91,7 @@ class Tournament():
           loser:  the id number of the player who lost
         """
         cursor = self.connection.cursor()
-        cursor.execute("INSERT INTO matches VALUES (%s, %s, %s);", (winner, loser, winner))
+        cursor.execute("INSERT INTO matches VALUES (%s, %s);", (winner, loser))
         self.connection.commit()
 
 
