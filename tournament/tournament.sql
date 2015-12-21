@@ -35,10 +35,9 @@ CREATE TABLE players (
 -- Create the matches table
 
 CREATE TABLE matches (
-  p1_id smallint REFERENCES players,
-  p2_id smallint REFERENCES players,
   winner_id smallint REFERENCES players,
-  PRIMARY KEY (p1_id, p2_id)
+  loser_id smallint REFERENCES players,
+  PRIMARY KEY (winner_id, loser_id)
 );
 
 -- Create a playerwins view
@@ -53,12 +52,12 @@ CREATE VIEW playerwins AS
 -- Create a playermatches view
 
 CREATE VIEW playermatches AS
-    SELECT p.player_id, count(occurrences.p1_id)
+    SELECT p.player_id, count(occurrences.winner_id)
     FROM players AS p
-        LEFT OUTER JOIN (SELECT p1_id
+        LEFT OUTER JOIN (SELECT winner_id
           FROM matches
           UNION ALL
-          SELECT p2_id FROM matches) AS occurrences ON (p.player_id = occurrences.p1_id)
+          SELECT loser_id FROM matches) AS occurrences ON (p.player_id = occurrences.winner_id)
     GROUP BY p.player_id;
 
 
