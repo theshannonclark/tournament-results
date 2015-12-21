@@ -52,19 +52,16 @@ CREATE VIEW playerwins AS
 -- Create a playermatches view
 
 CREATE VIEW playermatches AS
-    SELECT p.player_id, count(occurrences.winner_id)
-    FROM players AS p
-        LEFT OUTER JOIN (SELECT winner_id
-          FROM matches
-          UNION ALL
-          SELECT loser_id FROM matches) AS occurrences ON (p.player_id = occurrences.winner_id)
+    SELECT p.player_id, count(m.winner_id) AS num_matches
+    FROM players AS p, matches as m
+    WHERE p.player_id = m.winner_id OR p.player_id = m.loser_id
     GROUP BY p.player_id;
 
 
 -- Create a playerstandings view
 
 CREATE VIEW playerstandings AS
-    SELECT p.player_id, p.name, w.wins, m.count
+    SELECT p.player_id, p.name, w.wins, m.num_matches
     FROM players AS p
         LEFT OUTER JOIN playerwins AS w ON(p.player_id = w.player_id)
         LEFT OUTER JOIN playermatches AS m ON(p.player_id = m.player_id)
