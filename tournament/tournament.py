@@ -103,6 +103,10 @@ class Tournament():
         player with an equal or nearly-equal win record, that is, a player adjacent
         to him or her in the standings.
 
+        It wasn't made clear what should happen if there is a clear winner, so in
+        that case I've decided to just return all of the players in their final
+        order.
+
         Returns:
           A list of tuples, each of which contains (id1, name1, id2, name2)
             id1: the first player's unique id
@@ -112,12 +116,19 @@ class Tournament():
         """
         standings = self.playerStandings()
         pairings = []
+        # If there are at least 2 players...
         if len(standings) > 1:
-            if standings[0][-1] != standings[1][3]:
-                pairings = [(standings[0], standings[1])]
+            # If there is a winner...
+            if standings[0][3] != standings[1][3]:
+                # Return player standings
+                pairings = [(standing[0], standing[1]) for standing in standings]
             else:
+                # Pair each player with an adjacent player in the standings
                 for i in range(0, len(standings), 2):
                     p1 = (standings[i][0], standings[i][1])
                     p2 = (standings[i+1][0], standings[i+1][1])
                     pairings.append((p1[0], p1[1], p2[0], p2[1]))
         return pairings
+
+
+
