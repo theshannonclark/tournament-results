@@ -14,19 +14,19 @@ Vagrant is a piece of software used to provision, and configure a virtual machin
 ## Install Tournament Results
 You can download this project by cloning the git repository:
 
-```nix
+```
 git clone https://github.com/theshannonclark/tournament-results.git
 ```
 
 Then you can change into the resulting directory:
 
-```nix
+```
 cd tournament-results
 ```
 
 and run the virtual machine:
 
-```nix
+```
 vagrant up
 ```
 
@@ -34,25 +34,39 @@ This will provision the virtual machine with the settings from Vagrantfile, and 
 
 After that is finished, connect to the virtual machine using ssh:
 
-```nix
+```
 vagrant ssh
 ```
 
 From here, you can find the project files by entering:
 
-```nix
+```
 cd /vagrant/tournament
 ```
 
 ## Set up the tournament database
 All of the SQL commands needed to set up the database are defined in /vagrant/tournament/tournament.sql. All you need to do is connect to the PostgreSQL interactive terminal:
 
-```nix
+```
 psql
 ```
 
 and import the SQL file:
 
-```nix
+```
 \i tournament.sql
+```
+
+## Run the tests
+
+If you're still in the psql prompt, quit with this command:
+
+```
+\q
+```
+
+Then run the tournament_test.py file:
+
+```
+python tournament_test.py
 ```
