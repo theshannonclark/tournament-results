@@ -11,12 +11,12 @@ class Tournament():
         self.connection = None
 
     def __enter__(self):
-        """ Connect to the database when using with statement """
+        """ Connect to the database when using with statement. """
         self.connect()
         return self
 
     def __exit__(self, exc_type, exc_value, traceback):
-        """ Disconnect from the database when leaving with statement """
+        """ Disconnect from the database when leaving with statement. """
         self.close()
 
     def connect(self):
