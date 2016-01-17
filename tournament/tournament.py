@@ -13,14 +13,29 @@ def connect():
 
 def deleteMatches():
     """Remove all the match records from the database."""
+    connection = connect()
+    cursor = connection.cursor()
+    cursor.execute("DELETE FROM matches;")
+    connection.commit()
 
 
 def deletePlayers():
     """Remove all the player records from the database."""
+    connection = connect()
+    cursor = connection.cursor()
+    cursor.execute("DELETE FROM players;")
+    connection.commit()
 
 
 def countPlayers():
     """Returns the number of players currently registered."""
+    connection = connect()
+    cursor = connection.cursor()
+    cursor.execute("SELECT count(player_id) FROM players;")
+    result_tuple = cursor.fetchone()
+    num_players = result_tuple[0]
+
+    return num_players
 
 
 def registerPlayer(name):
@@ -32,6 +47,10 @@ def registerPlayer(name):
     Args:
       name: the player's full name (need not be unique).
     """
+    connection = connect()
+    cursor = connection.cursor()
+    cursor.execute("INSERT INTO players (name) VALUES (%s);", (name,))
+    connection.commit()
 
 
 def playerStandings():
@@ -45,6 +64,11 @@ def playerStandings():
         wins: the number of matches the player has won
         matches: the number of matches the player has played
     """
+    connection = connect()
+    cursor = connection.cursor()
+    cursor.execute("SELECT * FROM playerstandings;")
+
+    return cursor.fetchall()
 
 
 def reportMatch(winner, loser):
@@ -53,6 +77,10 @@ def reportMatch(winner, loser):
       winner:  the id number of the player who won
       loser:  the id number of the player who lost
     """
+    connection = connect()
+    cursor = connection.cursor()
+    cursor.execute("INSERT INTO matches VALUES (%s, %s);", (winner, loser))
+    connection.commit()
 
 
 def swissPairings():
@@ -70,3 +98,19 @@ def swissPairings():
         id2: the second player's unique id
         name2: the second player's name
     """
+    standings = playerStandings()
+    pairings = []
+    # If there are at least 2 players...
+    if len(standings) > 1:
+        # If there is a winner...
+        if standings[0][3] != standings[1][3]:
+            # Return player standings
+            pairings = [(standing[0], standing[1]) for standing in standings]
+        else:
+            # Pair each player with an adjacent player in the standings
+            for i in range(0, len(standings), 2):
+                p1 = (standings[i][0], standings[i][1])
+                p2 = (standings[i+1][0], standings[i+1][1])
+                pairings.append((p1[0], p1[1], p2[0], p2[1]))
+    return pairings
+
